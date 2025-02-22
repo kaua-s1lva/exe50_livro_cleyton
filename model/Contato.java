@@ -29,9 +29,4 @@ public class Contato {
             this.numero
         );
     }
-
-    public void restaurar(ContatoMemento memento) {
-        this.nome = memento.getNome();
-        this.numero = memento.getNumero();
-    }
 }

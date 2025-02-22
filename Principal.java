@@ -6,13 +6,14 @@ public class Principal {
         new SalvarContatoCommand().executar(contato2);
 
         new ExcluirContatoCommand().executar(contato);
-        /*
-        Zelador.getInstancia().add(contato.criar());
-        contato.setNome("Geraldo");
-        System.out.println(contato.getNome());
-        //contato.restaurar(Zelador.getInstancia().getUltimo());
-        System.out.println(contato.getNome());
-         */
+        Contato contato3 = new Contato("Gabriel", "28999886262");
+        new SalvarContatoCommand().executar(contato3);
+        new ExcluirContatoCommand().executar(contato3);
+
+        new RestaurarContatoCommand().executar(contato3);
+        new RestaurarContatoCommand().executar(contato);
+
+        System.out.println(Zelador.getInstancia().toString());
         
     }
 }

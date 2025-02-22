@@ -31,31 +31,26 @@ public class Zelador {
         }
     }
 
-    public ContatoMemento desfazer() {
-        int ultimo = pilhaSalvar.size() - 1;
-        ContatoMemento memento = pilhaSalvar.remove(ultimo);
-        pilhaExcluir.add(memento);
-
-        ultimo--;
-
-        if (ultimo <= -1) {
-            throw new RuntimeException("Não possui mais elementos para desfazer");
+    public void restaurar(ContatoMemento memento) {
+        try {
+            pilhaExcluir.remove(memento);
+            pilhaSalvar.add(memento);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao encontrar contato: " + e.getMessage());
         }
-        return pilhaSalvar.get(ultimo);
     }
 
-    public ContatoMemento refazer() {
-        int ultimo = pilhaSalvar.size() - 1;
-        ContatoMemento memento = pilhaExcluir.remove(ultimo);
-        pilhaSalvar.add(memento);
-        return memento;
-    }
+    @Override
+    public String toString() {
+        String textoPilhaSalvar="Pilha de Salvar Contato: \n", textoPilhaExcluir="Pilha de Excluir Contato: \n";
+        for (ContatoMemento mementoSalvar : pilhaSalvar) {
+            textoPilhaSalvar += "[" + mementoSalvar.getNome() + ", " + mementoSalvar.getNumero() + "]\n";
+        }
 
-    public List<ContatoMemento> getPilhaSalvar() {
-        return pilhaSalvar;
-    }
+        for (ContatoMemento mementoExcluir : pilhaExcluir) {
+            textoPilhaExcluir += "[" + mementoExcluir.getNome() + ", " + mementoExcluir.getNumero() + "]\n";
+        }
 
-    public List<ContatoMemento> getPilhaExcluir() {
-        return pilhaExcluir;
+        return "\n" + textoPilhaSalvar + "\n" + textoPilhaExcluir;
     }
 }
